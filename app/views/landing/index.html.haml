@@ -1,0 +1,23 @@
+.landing-page-content
+
+  = image_tag 'FinxSoftware-LOGO-WHITE', class: 'logo'
+  = image_tag 'FinxSoftware-LOGO-BLACK', class: 'logo-mobile'
+
+  .form
+    .form-text
+      %h2 A Brave New Way to Boost Your Auto-financing & Aftermarket Profits
+      %h3 WITH OUR CUSTOM FINANCE MENU SELLING SOFTWARE
+    .form-fields
+      = form_for :user, url: session_path(:user) do |f|
+        = f.text_field :email, label: false, placeholder: 'Email', autofocus: true
+        = f.password_field :password, label: false, placeholder: 'Password'
+        = f.check_box :remember_me, class: 'remember'
+        = f.submit 'Sign in', class: 'button'
+
+        = link_to "Forgot your password?", new_password_path(:user), class: 'forgot'
+
+  %ul.sub-nav
+    %li
+      = mail_to 'info@finx.ca', 'Support'
+    %li
+      = link_to 'Legal info', '/Terms%20&%20Conditions.pdf'

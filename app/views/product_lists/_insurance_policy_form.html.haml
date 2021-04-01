@@ -1,0 +1,41 @@
+%tr.insurance-policy-form
+  = f.fields_for :insurance_policies, insurance_policy do |pf|
+    = pf.hidden_field :_destroy
+    = pf.hidden_field :category
+
+    - if admin?
+      %td
+        = pf.text_field :name, label: false, class: 'name'
+      %td
+        .row
+          - InsuranceRate::VARIATIONS.each do |variation|
+            - variation_attributes = { loan: variation.loan, residual: variation.residual }
+            .large-4.columns.insurance-rate-variation
+              .name
+                %a.add-insurance-rate
+                  %i.fa.fa-plus
+                  = variation.name
+              
+              .row
+                .small-6.columns
+                  Term
+                .small-6.columns
+                  Rate
+
+              .insurance-rates
+                - insurance_policy.insurance_rates.where(variation_attributes).each do |insurance_rate|
+                  = render 'insurance_rate_form', f: pf, insurance_rate: insurance_rate
+
+              %template.insurance-rate-template
+                = render 'insurance_rate_form', f: pf, insurance_rate: insurance_policy.insurance_rates.build(variation_attributes)
+
+    - else
+      - if insurance_policy.new_record?
+        - dealership_policies = current_user.dealership.product_list.insurance_policies
+        %td
+          = pf.select :prototype_id, dealership_policies.map { |p| [p.name, p.id] }, { include_blank: true, label: false }, class: 'name'
+      - else
+        %td
+          = pf.text_field :name, label: false, name: nil, disabled: true, class: 'name'
+    %td.delete-link
+      = link_to '', '#', class: 'destroy fa fa-trash-o'

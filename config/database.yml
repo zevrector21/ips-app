@@ -1,0 +1,12 @@
+default: &default
+  adapter: postgresql
+  timeout: 5000
+
+development:
+  <<: *default
+  database: ips_dev
+  username: midas
+  password: midas
+
+production:
+  <<: *default

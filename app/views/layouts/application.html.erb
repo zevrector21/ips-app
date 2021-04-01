@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Finx Software</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">      
+    <%= stylesheet_link_tag    "application", media: 'all' %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" %>
+    <script src="https://use.fontawesome.com/559c3ab777.js"></script>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body class="<%= controller.controller_name %>">
+    <%= display_flash_messages %>
+    <%= yield %>
+    <%= insert_paloma_hook %>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="medium-3 columns">
+            <%= image_tag 'FinxSoftware-LOGO-WHITE', class: 'logo' %>
+          </div>
+          <div class="medium-8 columns">
+            <p><%= t :company_legal_name %>, Vancouver, BC, Canada</p>
+            <p>
+              <% if user_signed_in? %>
+                <span><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></span>
+              <% end %>
+            </p>
+            <p>FinX Software Solutions</p>
+          </div>
+          <div class="medium-1 columns">
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

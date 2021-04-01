@@ -1,0 +1,30 @@
+.container
+    %nav
+        .row
+            .columns
+                %ul.breadcrumbs
+                    %li= link_to 'Back', :back
+    %main
+        .row.page-content
+            .medium-12.columns
+                %table.logs
+                    %thead
+                        %tr
+                            %th Email
+                            %th Name
+                            %th Logined at
+                            %th Logined IP
+                            %th Action
+                    %tbody
+                        - @listable.each do |item|
+                            %tr
+                                %td 
+                                    %span= item["email"]
+                                %td 
+                                    %span= item["name"]
+                                %td 
+                                    %span= item["current_sign_in_at"].in_time_zone("Pacific Time (US & Canada)")
+                                %td 
+                                    %span= item["current_sign_in_ip"]
+                                %td
+                                    %a{:href => '/user/forceout/' + item["id"].to_s } Logout

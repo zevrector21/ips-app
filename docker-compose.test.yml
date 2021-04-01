@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  app:
+    command: test
+    environment:
+      DATABASE_URL: postgresql://postgres:@db/ips-test
+    volumes:
+      - .:/app/user
